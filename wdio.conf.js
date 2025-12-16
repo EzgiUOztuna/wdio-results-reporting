@@ -1,4 +1,22 @@
+const { ReportAggregator, HtmlReporter } = require('wdio-html-nice-reporter');
+let reportAggregator;
 exports.config = {
+    onPrepare: function (config, capabilities) {
+        reportAggregator = new ReportAggregator({
+            outputDir: './reports/html-reports/',
+            filename: 'master-report.html',
+            reportTitle: 'Master Report',
+            //browserName: capabilities.browserName,
+            collapseTests: true
+        });
+        reportAggregator.clean();
+    },
+
+    onComplete: async function () {
+        await reportAggregator.createReport();
+    },
+
+
     //
     // ====================
     // Runner Configuration
@@ -124,7 +142,7 @@ exports.config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec',
-        ["html-nice",
+        [HtmlReporter,
             {
                 outputDir: './reports/html-reports/',
                 filename: 'report.html',
@@ -134,7 +152,8 @@ exports.config = {
                 showInBrowser: true,
                 collapseTests: false,
                 //to turn on screenshots after every test
-                useOnAfterCommandForScreenshot: false
+                useOnAfterCommandForScreenshot: false,
+                produceJson: true
             }
         ]
     ],
