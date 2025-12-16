@@ -1,0 +1,29 @@
+{
+  "name": "wdio-results-reporting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wdio": "wdio run ./wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EzgiUOztuna/wdio-results-reporting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EzgiUOztuna/wdio-results-reporting/issues"
+  },
+  "homepage": "https://github.com/EzgiUOztuna/wdio-results-reporting#readme",
+  "devDependencies": {
+    "@wdio/cli": "^9.21.1",
+    "@wdio/local-runner": "^9.21.0",
+    "@wdio/mocha-framework": "^9.21.0",
+    "@wdio/spec-reporter": "^9.20.0",
+    "wdio-html-nice-reporter": "^8.1.7"
+  }
+}
