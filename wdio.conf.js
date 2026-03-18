@@ -1,20 +1,20 @@
 const { ReportAggregator, HtmlReporter } = require('wdio-html-nice-reporter');
-let reportAggregator;
+//let reportAggregator;
 exports.config = {
-    onPrepare: function (config, capabilities) {
-        reportAggregator = new ReportAggregator({
-            outputDir: './reports/html-reports/',
-            filename: 'master-report.html',
-            reportTitle: 'Master Report',
-            //browserName: capabilities.browserName,
-            collapseTests: true
-        });
-        reportAggregator.clean();
-    },
+    /*onPrepare: function (config, capabilities) {
+         reportAggregator = new ReportAggregator({
+             outputDir: './reports/html-reports/',
+             filename: 'master-report.html',
+             reportTitle: 'Master Report',
+             //browserName: capabilities.browserName,
+             collapseTests: true
+         });
+         reportAggregator.clean();
+     },*/
 
-    onComplete: async function () {
+    /*onComplete: async function () {
         await reportAggregator.createReport();
-    },
+    },*/
 
 
     //
@@ -141,21 +141,23 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',
-        [HtmlReporter,
-            {
-                outputDir: './reports/html-reports/',
-                filename: 'report.html',
-                reportTitle: 'Test Report Title',
-                linkScreenshots: true,
-                //to show the report in a browser when done
-                showInBrowser: true,
-                collapseTests: false,
-                //to turn on screenshots after every test
-                useOnAfterCommandForScreenshot: false,
-                produceJson: true
-            }
-        ]
+    reporters: [
+        ['spec', {
+            symbols: {
+                passed: '[PASS]',
+                failed: '[FAIL]',
+            },
+        }],
+        [HtmlReporter, {
+            outputDir: './reports/html-reports/',
+            filename: 'report.html',
+            reportTitle: 'Test Report Title',
+            linkScreenshots: true,
+            showInBrowser: true,
+            collapseTests: false,
+            useOnAfterCommandForScreenshot: false,
+            produceJson: true
+        }]
     ],
 
     // Options to be passed to Mocha.
