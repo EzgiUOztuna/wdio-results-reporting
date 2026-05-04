@@ -1,20 +1,20 @@
 const { ReportAggregator, HtmlReporter } = require('wdio-html-nice-reporter');
 //let reportAggregator;
 exports.config = {
-    /*onPrepare: function (config, capabilities) {
-         reportAggregator = new ReportAggregator({
-             outputDir: './reports/html-reports/',
-             filename: 'master-report.html',
-             reportTitle: 'Master Report',
-             //browserName: capabilities.browserName,
-             collapseTests: true
-         });
-         reportAggregator.clean();
-     },*/
+    onPrepare: function (config, capabilities) {
+        reportAggregator = new ReportAggregator({
+            outputDir: './reports/html-reports/',
+            filename: 'master-report.html',
+            reportTitle: 'Master Report',
+            browserName: capabilities.browserName,
+            collapseTests: true
+        });
+        reportAggregator.clean();
+    },
 
-    /*onComplete: async function () {
+    onComplete: async function () {
         await reportAggregator.createReport();
-    },*/
+    },
 
 
     //
