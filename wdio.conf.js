@@ -157,7 +157,6 @@ exports.config = {
 
     afterTest: async function (test, context, { error }) {
         if (error) {
-            //const screenshotPath = `./reports/html-reports/screenshots/${test.title}.png`;
             await browser.takeScreenshot();
         }
     },
