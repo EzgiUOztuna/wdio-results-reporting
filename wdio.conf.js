@@ -1,28 +1,6 @@
 const { ReportAggregator, HtmlReporter } = require('wdio-html-nice-reporter');
 //let reportAggregator;
 exports.config = {
-    onPrepare: function (config, capabilities) {
-        reportAggregator = new ReportAggregator({
-            outputDir: './reports/html-reports/',
-            filename: 'master-report.html',
-            reportTitle: 'Master Report',
-            browserName: capabilities.browserName,
-            collapseTests: true
-        });
-        reportAggregator.clean();
-    },
-
-    afterTest: async function (test, context, { error }) {
-        if (error) {
-            await browser.saveScreenshot(`./reports/html-reports/screenshots/${test.title}.png`);
-        }
-    },
-
-    onComplete: async function () {
-        await reportAggregator.createReport();
-    },
-
-
     //
     // ====================
     // Runner Configuration
@@ -161,10 +139,41 @@ exports.config = {
             linkScreenshots: true,
             showInBrowser: true,
             collapseTests: false,
-            useOnAfterCommandForScreenshot: false,
+            useOnAfterCommandForScreenshot: true,
             produceJson: true
         }]
     ],
+
+    onPrepare: function (config, capabilities) {
+        reportAggregator = new ReportAggregator({
+            outputDir: './reports/html-reports/',
+            filename: 'master-report.html',
+            reportTitle: 'Master Report',
+            browserName: capabilities.browserName,
+            collapseTests: true
+        });
+        reportAggregator.clean();
+    },
+
+    afterTest: async function (test, context, { error }) {
+        if (error) {
+            const path = `./reports/html-reports/screenshots/${test.title}.png`;
+            await browser.saveScreenshot(path);
+
+            if (!test.context) {
+                test.context = [];
+            }
+
+            test.context.push({
+                title: 'Screenshot',
+                value: path
+            });
+        }
+    },
+
+    onComplete: async function () {
+        await reportAggregator.createReport();
+    },
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
