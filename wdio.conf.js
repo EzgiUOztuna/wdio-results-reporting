@@ -12,6 +12,12 @@ exports.config = {
         reportAggregator.clean();
     },
 
+    afterTest: async function (test, context, { error }) {
+        if (error) {
+            await browser.saveScreenshot(`./reports/html-reports/screenshots/${test.title}.png`);
+        }
+    },
+
     onComplete: async function () {
         await reportAggregator.createReport();
     },
