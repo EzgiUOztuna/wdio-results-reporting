@@ -9,7 +9,10 @@ describe('My Login application', () => {
         await LoginPage.login('tomsmith', 'SuperSecretPassword!')
         await expect(SecurePage.flashAlert).toBeExisting()
         await expect(SecurePage.flashAlert).toHaveText(
-            expect.stringContaining('You logged into a secure area!'))
+            expect.stringContaining('You logged into a secure area1!'))
+        await browser.saveScreenshot('screenshot.png')
+
+
     })
 })
 
